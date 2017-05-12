@@ -1,7 +1,9 @@
+bin/
 resin-data/
 .project
 .classpath
 src/main/webapp/WEB-INF/classes/
 src/main/webapp/WEB-INF/lib/
 src/main/webapp/WEB-INF/lib-extras
+src/main/webapp/Logs/
 
