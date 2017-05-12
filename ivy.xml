@@ -1,0 +1,35 @@
+<ivy-module version="2.4">
+    <info organisation="com.techempower" module="App"/>
+    
+    <configurations>
+      <conf name="sources" />
+      <conf name="binaries" />
+      <conf name="extras" />
+    </configurations>
+    
+    <dependencies>
+        <dependency org="javax" name="javaee-api" rev="6.0" conf="binaries->default"/>
+        <dependency org="javax" name="javaee-web-api" rev="6.0" conf="binaries->default"/>
+        <dependency org="javax.activation" name="activation" rev="1.1.1" conf="binaries->default"/>
+        <dependency org="javax.mail" name="javax.mail-api" rev="1.5.6" conf="binaries->default"/>
+        <dependency org="com.google.guava" name="guava" rev="18.0" conf="binaries->default"/>
+        <dependency org="net.sf.trove4j" name="trove4j" rev="3.0.3" conf="binaries->default"/>
+        <dependency org="com.github.spullara.mustache.java" name="compiler" rev="0.8.17" conf="binaries->default"/>
+        <dependency org="org.mindrot" name="jbcrypt" rev="0.3m" conf="binaries->default"/>
+        <dependency org="mysql" name="mysql-connector-java" rev="5.1.34" conf="binaries->default"/>
+        <dependency org="com.mortennobel" name="java-image-scaling" rev="0.8.5" conf="binaries->default"/>
+        <dependency org="org.im4java" name="im4java" rev="1.4.0" conf="binaries->default"/>
+        <dependency org="com.fasterxml.jackson.core" name="jackson-core" rev="2.7.3" conf="binaries->default"/>
+        <dependency org="com.fasterxml.jackson.core" name="jackson-annotations" rev="2.7.3" conf="binaries->default"/>
+        <dependency org="com.fasterxml.jackson.core" name="jackson-databind" rev="2.7.3" conf="binaries->default"/>
+        <dependency org="com.esotericsoftware" name="kryonet-all" rev="2.18" conf="binaries->default"/>
+        <dependency org="com.techempower" name="gemini" rev="2.18.0-SNAPSHOT" conf="binaries->default"/>
+        <dependency org="com.techempower" name="gemini-resin" rev="2.18.0-SNAPSHOT" conf="binaries->default"/>
+        <dependency org="com.techempower" name="gemini-admin" rev="2.18.0-SNAPSHOT" conf="binaries->default"/>
+        <dependency org="com.techempower" name="gemini-form" rev="2.18.0-SNAPSHOT" conf="binaries->default"/>
+        <dependency org="org.reflections" name="reflections" rev="0.9.10" conf="binaries->default"/>
+        <dependency org="javassist" name="javassist" rev="3.12.1.GA" conf="binaries->default"/>
+        <dependency org="com.dbdeploy" name="dbdeploy-ant" rev="3.0M3" conf="binaries->default"/>
+        <dependency org="com.yahoo.platform.yui" name="yuicompressor" rev="2.4.8" conf="extras->default"/>
+    </dependencies>
+</ivy-module>
