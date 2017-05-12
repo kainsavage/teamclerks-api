@@ -1,0 +1,19 @@
+<ivysettings>
+    <settings defaultResolver='nexus'/>
+    <resolvers>
+        <chain name="nexus">
+            <ibiblio name='nexus-snapshot' 
+                     m2compatible='true'
+                     usepoms='true'
+                     pattern='[organisation]/[module]/[revision]/[artifact]-[revision](-[classifier]).[ext]' 
+                     root='https://maven.techempower.com:8081/nexus/content/repositories/snapshots/' />
+            <ibiblio name='nexus-releases' 
+                     m2compatible='true' 
+                     root='https://maven.techempower.com:8081/nexus/content/repositories/releases/' />
+            <ibiblio name='nexus-thirdparty' 
+                     m2compatible='true' 
+                     root='https://maven.techempower.com:8081/nexus/content/repositories/thirdparty/' />
+            <ibiblio name='central' m2compatible='true'/>
+        </chain>
+    </resolvers>
+</ivysettings>
