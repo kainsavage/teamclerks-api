@@ -1,7 +1,7 @@
 <project name="App" default="dist" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant" >
   
   <description>
-    Skeleton Gemini Application
+    TeamClerks API
   </description>
   
   <!-- set global properties for this build -->
@@ -13,16 +13,6 @@
   <property name="dist"  location="dist"/>
   <property name="lib" location="lib"/>
   <property name="migrations" location="database/mysql/migration"/>
-  
-  <property name="lessc" location="lessc"/>
-  
-  <property name="js.orig" location="${root}/WEB-INF/docroot/js/"/>
-  <property name="js.build" location="${root}/WEB-INF/docroot/js-build/"/>
-  
-  <property name="css.orig" location="${root}/WEB-INF/docroot/css/"/>
-  <property name="css.build" location="${root}/WEB-INF/docroot/css-build/"/>
-  
-  <property name="yuicompressor" location="lib-extras/yuicompressor.jar"/>
 
   <!-- Update these as needed -->
   <property name="project.name" value="App" />
@@ -32,50 +22,6 @@
   <property name="ivy.home" value="${user.home}/.ant" />
   <property name="ivy.jar.dir" value="${ivy.home}/lib" />
   <property name="ivy.jar.file" value="${ivy.jar.dir}/ivy.jar" />
-
-  <target name="init">
-    <!-- Create the time stamp -->
-    <tstamp/>
-    <!-- Create the build directory structure used by compile -->
-    <mkdir dir="${build}"/>
-    <mkdir dir="${js.build}"/>
-    <mkdir dir="${css.build}"/>
-  </target>
-  
-  <target name="compile" depends="resolve,init"
-        description="compile the source " >
-    <!-- Compile the java code from ${src} into ${build} -->
-    <mkdir dir="${build}" />
-    <javac srcdir="${src}" destdir="${build}">
-      <classpath>
-          <fileset dir="${lib}">
-              <include name="**/*.jar"/>
-          </fileset>
-      </classpath>
-    </javac>
-  </target>
-
-  <target name="dist" depends="compile, compileless, concatjs"
-        description="generate the distribution" >
-    <!-- Create the distribution directory -->
-    <mkdir dir="${dist}"/>
-
-    <jar destfile="${dist}/${project.name}-${DSTAMP}.jar" basedir="${build}">
-        <zipgroupfileset dir="lib" includes="*.jar"/>
-        <zipfileset dir="configuration" prefix="configuration"/>
-        <zipfileset dir="${root}/WEB-INF" prefix="WEB-INF">
-          <exclude name="docroot/**/js/**"/>
-          <exclude name="docroot/**/js-build/**"/>
-          <exclude name="docroot/**/css/**"/>
-          <exclude name="docroot/**/css-build/**"/>
-        </zipfileset>
-        <zipfileset dir="${js.build}" prefix="WEB-INF/docroot/js"/>
-        <zipfileset dir="${css.build}" prefix="WEB-INF/docroot/css"/>
-        <manifest>
-          <attribute name="Main-Class" value="${project.mainClass}"/>
-        </manifest>
-    </jar>
-  </target>
 
   <target name="resolve" depends="clean" description="--> retrieve dependencies with ivy">
     <ivy:settings file="./ivysettings.xml"/>
@@ -87,87 +33,12 @@
         description="clean up" >
     <!-- Delete the ${build} and static asset path directory trees -->
     <delete dir="${build}" failonerror="false"/>
-    <delete dir="${css.build}" failonerror="false"/>
-    <delete dir="${js.build}" failonerror="false"/>
     <delete failonerror="false">
       <fileset dir="${lib}" erroronmissingdir="false">
         <include name="**/*.jar"/>
         <exclude name="dbdeploy*.jar"/>
       </fileset>
     </delete>
-  </target>
-  
-  <target name="run" depends="dist">
-    <java jar="${dist}/${project.name}-${DSTAMP}.jar" fork="true">
-      <arg value="${app.port}" />
-    </java>
-  </target>
-  
-  <!-- Assumes node is in your path and the location of lessc is in app.properties-->
-  <target name="compileless">
-    <echo message="Converting LESS to CSS"/>
-    
-    <mkdir dir="${css.build}"/>
-    <copy todir="${css.build}">
-      <fileset dir="${css.orig}"/>
-    </copy>
-    <exec executable="${lessc}" failonerror="true">
-      <arg line="${css.build}/app.less ${css.build}/app.css"/>
-    </exec>
-  </target>
-  
-  <target name="minjs" description="Minify any changed js files (incremental)">
-    <!-- Copy all non-js to the publish directory. This also sets up the
-      empty directory structure that keeps the apply task from erroring out.
-      Do not add any includes here - do that in the next section. -->
-    <copy todir="${js.build}">
-      <fileset dir="${js.orig}/">
-        <exclude name="**/*.js"/>
-        <exclude name="**/.idea/"/>
-      </fileset>
-    </copy>
-    <!-- Copy specific js files here that you don't want to be compressed.
-      If adding here, make sure to add to the exclusion list lower down. -->
-    <copy todir="${js.build}">
-      <fileset dir="${js.orig}/">
-        <include name="external/**/*.js"/>
-      </fileset>
-    </copy>
-    <!-- Compress each of the js files. -->
-    <apply executable="java" parallel="false" force="false"
-           dest="${js.build}">
-      <fileset dir="${js.orig}">
-        <include name="**/*.js"/>
-        <!-- The following files will not be compiled -->
-        <!-- These must also be manually copied in the above section -->
-        <exclude name="external/**/*.js"/>
-        <exclude name="**/.idea/"/>
-      </fileset>
-      <fileset dir="${js.orig}">
-        <include name="external/dev/**/*.js"/>
-      </fileset>
-      <arg value="-jar"/>
-      <arg value="${yuicompressor}"/>
-      <arg value="-o"/>
-      <mapper type="identity"/>
-      <targetfile/>
-      <srcfile/>
-    </apply>
-  </target>
-  
-  <target name="concatjs" depends="minjs">
-    <!-- if you have javascript that should be concatenated and minified and must occur in the header
-    uncomment the section below -->
-    <!-- <concat destfile="${js.build}/head.min.js" fixlastline="yes" eol="crlf">
-      Add a reference to any js files that ought to be included in the header, in the same
-       fashion as below in the section for javascript that can be included after page load
-    </concat> -->
-
-    <concat destfile="${js.build}/footer.min.js" fixlastline="yes" eol="crlf">
-      <!-- Add a reference to any js files that ought to be included in the footer -->
-      <fileset file="${js.build}/app.js"/>
-      <fileset file="${js.build}/app.forms.js"/>
-    </concat>
   </target>
   
   <path id="mysql.classpath">

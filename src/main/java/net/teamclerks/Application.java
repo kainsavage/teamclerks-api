@@ -15,7 +15,7 @@ import net.teamclerks.handlers.*;
  * the central "hub" of references to components such as the Dispatcher,
  * Security, and EntityStore.
  */
-public class Application
+public final class Application
     extends ResinGeminiApplication
 {
 
@@ -33,7 +33,7 @@ public class Application
    * Constructor. This method can be extended to construct references to
    * custom components for the application.
    */
-  public Application()
+  private Application()
   {
     super();
   }

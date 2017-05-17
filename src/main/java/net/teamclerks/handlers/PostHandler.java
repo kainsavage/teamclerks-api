@@ -49,7 +49,7 @@ public class PostHandler extends SecureMethodUriHandler<Context,User>
   }
   
   @Path("latest")
-  @Get()
+  @Get
   @PathBypassAuth
   public boolean getLatest()
   {
