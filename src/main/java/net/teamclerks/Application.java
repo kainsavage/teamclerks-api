@@ -102,6 +102,7 @@ public final class Application
     config
       .add("login", new LoginHandler<Context>(this))
       .add("logout", new LogoutHandler<Context>(this))
+      .add("user", new UserHandler(this))
       .add("posts", new PostHandler(this));
     
     // Add ExceptionHandlers

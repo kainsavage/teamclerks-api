@@ -10,6 +10,7 @@ import com.techempower.gemini.path.annotation.*;
 import com.techempower.gemini.pyxis.annotation.*;
 import com.techempower.gemini.pyxis.handler.*;
 
+import net.teamclerks.*;
 import net.teamclerks.entities.*;
 
 public class PostHandler extends SecureMethodUriHandler<Context,User>
@@ -19,7 +20,7 @@ public class PostHandler extends SecureMethodUriHandler<Context,User>
     new RequiredValidator("title")
   );
 
-  public PostHandler(GeminiApplication app)
+  public PostHandler(Application app)
   {
     super(app, "PoHa");
   }
