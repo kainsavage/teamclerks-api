@@ -45,6 +45,12 @@
   <servlet>
     <servlet-name>Server</servlet-name>
     <servlet-class>net.teamclerks.Server</servlet-class>
+    <!-- Uncomment for production deployment 
+    <init-param>
+      <param-name>ConfigurationFile</param-name>
+      <param-value>/home/ubuntu/App-TEAMCLERKS.NET.conf</param-value>
+    </init-param>
+    -->
   </servlet>
   <servlet-mapping>
     <servlet-name>Server</servlet-name>

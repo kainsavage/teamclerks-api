@@ -45,6 +45,11 @@ public class User
         return getId();
       }
       @JsonProperty
+      public String username()
+      {
+        return getUserUsername();
+      }
+      @JsonProperty
       public String name()
       {
         return getUserFirstname() + " " + getUserLastname();
